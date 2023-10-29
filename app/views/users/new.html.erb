@@ -1,0 +1,12 @@
+<div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <h2 class="mt-6 text-center text-2xl tracking-wider font-serif font-bold ">建立員工</h2>
+  </div>
+
+  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md bg-white">
+    <div class="py-8 px-4 shadow sm:px-10 border border-volcano-glass shadow-lg">
+      <%= render "form", user: @user %>
+      <%= link_to "回到員工列表", users_path, class: "block underline decoration-gray-600 py-6" %>
+    </div>
+  </div>
+</div>

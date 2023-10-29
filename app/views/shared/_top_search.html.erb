@@ -1,0 +1,30 @@
+<div class="sticky top-0 z-10 flex-shrink-0 flex p-0 sm:p-4 bg-white border-b border-gray-500">
+  <button type="button" class="px-4 border-0 md:hidden shadow-none" data-action="click->mobilemenu#showMenu">
+    <span class="sr-only">Open sidebar</span>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-anthracite">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"/>
+    </svg>
+  </button>
+  <div class="flex-1 pl-4 flex justify-end items-end">
+
+    <div class="hidden lg:flex lg:gap-x-12">
+      <div class="flex flex-col">
+        <span class="font-semibold leading-6 text-rose-500">姓名</span>
+        <span class="block"><%= current_user.username %></span>
+      </div>
+
+      <div class="flex flex-col" data-controller="user" data-user-id-value="<%= current_user.id %>">
+        <span class="font-semibold leading-6 text-rose-500">元件</span>
+        <span class="block" data-user-target="quota"><%= current_user.quota %></span>
+      </div>
+
+      <%= link_to destroy_user_session_path, data: { "turbo-method": "delete" }, class: "btn border border-rose-500" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mr-3 flex-shrink-0 w-5 h-5 text-rose-500">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"/>
+        </svg>
+        <span class="text-rose-500">登出</span>
+      <% end %>
+    </div>
+
+  </div>
+</div>

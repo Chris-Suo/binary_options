@@ -1,0 +1,33 @@
+<div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <h2 class="mt-6 text-center text-2xl tracking-wider font-serif font-bold ">員工登入</h2>
+  </div>
+
+  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md bg-white">
+    <div class="py-8 px-4 shadow sm:px-10 border border-volcano-glass shadow-lg">
+
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-6" }) do |f| %>
+
+        <div>
+          <%= f.label :username, "員工名稱", class: "block text-lg font-medium text-gray-700" %>
+          <div class="mt-1">
+            <%= f.text_field :username, autofocus: true, autocomplete: "username", class: "block w-full border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6" %>
+          </div>
+        </div>
+
+        <div>
+          <%= f.label :password, "密碼", class: "block text-lg font-medium text-gray-700" %>
+          <div class="mt-1">
+            <%= f.password_field :password, autocomplete: "current-password", class: "block w-full border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6" %>
+          </div>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "登入", class: "flex w-full justify-center border border-transparent bg-indigo-600 py-2 px-4 text-lg font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+        </div>
+
+      <% end %>
+
+    </div>
+  </div>
+</div>

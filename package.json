@@ -1,0 +1,7 @@
+{
+  "name": "binary_options",
+  "version": "1.0.0",
+  "dependencies": {
+    "channels": "^0.0.4"
+  }
+}

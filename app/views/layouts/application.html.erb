@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="<%= params[:locale] %>" class="h-full">
+<head>
+  <title><%= controller_name.humanize.titleize %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content=""/>
+  <meta name="keywords" content=""/>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta id="extViewportMeta" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%#= action_cable_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
+  <% if current_user %>
+    <meta name="channel" content=<%= current_user.id %>/>
+  <% end %>
+
+  <style>
+      html, body {
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          -webkit-overflow-scrolling: touch;
+      }
+  </style>
+  <%= javascript_importmap_tags %>
+
+</head>
+<body class="h-full w-full" data-controller="mobilemenu">
+
+<!-- i dont think we need this anymore -->
+<%= render "shared/offcanvas_mobile_menu" %>
+<%= render "shared/static_desktop_sidebar" %>
+
+<%# search and content on the right %>
+<div class="md:pl-64 flex flex-col flex-1 h-full overflow-scroll">
+  <%= render "shared/top_search" %>
+  <main class="flex-1">
+    <div class="max-w-8xl mx-auto">
+      <!-- Replace with your content -->
+      <div class="h-100">
+        <%= yield %>
+      </div>
+      <!-- /End replace -->
+    </div>
+  </main>
+</div>
+
+<%= render "shared/flash" %>
+</body>
+</html>

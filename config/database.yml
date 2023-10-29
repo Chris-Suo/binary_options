@@ -1,0 +1,11 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: binary_options_development
+  username: badman
+  password: Solti!!!
+  host: 127.0.0.1
+  pool: 10
+
+
+

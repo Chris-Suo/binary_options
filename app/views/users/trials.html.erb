@@ -1,0 +1,56 @@
+<div class="mx-auto max-w-8xl p-4 sm:p-6 lg:p-8">
+  <div class="flex justify-start items-center">
+    <h1 class="font-bold text-2xl tracking-wider">檢測歷史紀錄</h1>
+
+    <h2 class="ml-4 font-bold text-xl tracking-wider">檢測總數: <%= @trials.count %></h2>
+    <h2 class="ml-4 font-bold text-xl text-indigo-500 tracking-wider">正確總數: <%= @trials.correct.count %></h2>
+    <h2 class="ml-4 font-bold text-xl text-rose-500 tracking-wider">錯誤總數: <%= @trials.faulty.count %></h2>
+
+  </div>
+
+  <div class="overflow-auto py-4 align-middle">
+    <%= paginate @trials %>
+    <table class="">
+      <thead class="">
+      <tr>
+        <td class="bg-indigo-600"><span class="whitespace-nowrap">Employee</span></td>
+        <td class="bg-indigo-600"><span class="whitespace-nowrap">Equipment</span></td>
+        <td class="bg-indigo-600"><span class="whitespace-nowrap">Anticipating</span></td>
+        <td class="bg-indigo-600"><span class="whitespace-nowrap">Accepted</span></td>
+        <td class="bg-indigo-600"><span class="whitespace-nowrap">Correctness</span></td>
+        <td class="bg-indigo-600"><span class="whitespace-nowrap">Alignment Base</span></td>
+        <td class="bg-indigo-600"><span class="whitespace-nowrap">Batch Time</span></td>
+        <td class="bg-indigo-600"><span class="whitespace-nowrap">Element Before</span></td>
+        <td class="bg-indigo-600"><span class="whitespace-nowrap">Element After</span></td>
+        <td class="bg-indigo-600"><span class="whitespace-nowrap">Element Changed</span></td>
+        <td class="bg-indigo-600"><span class="whitespace-nowrap">Created at</span></td>
+        <td class="bg-indigo-600"><span class="whitespace-nowrap">Updated at</span></td>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @trials.each do |t| %>
+        <tr>
+          <td class="whitespace-nowrap"><span><%= t.user.username %></span></td>
+          <td class="whitespace-nowrap"><span><%= t.machine.name.gsub(/[^a-zA-Z ]/, "") %></span></td>
+          <td class="whitespace-nowrap"><span><%= t.exam.answer_string.gsub(/[^a-zA-Z ]/, "") %></span></td>
+          <td class="whitespace-nowrap"><span><%= t.machine.public_send("option#{t.answer}").gsub(/[^a-zA-Z ]/, "") %></span></td>
+          <td class="whitespace-nowrap <%= t.correctness ? "" : "text-red-500" %>"><span><%= t.correctness ? "Correct" : "Exam w/ Fault" %></span>
+          </td>
+          <td class="whitespace-nowrap"><span><%= t.exam_option %></span></td>
+          <td class="whitespace-nowrap"><span><%= I18n.l Time.zone.at(t.batch_at_code), format: :short, locale: :en %></span></td>
+          <td class="whitespace-nowrap"><span><%= t.quota_before %></span></td>
+          <td class="whitespace-nowrap"><span><%= t.quota_after %></span></td>
+          <td class="whitespace-nowrap"><span><%= t.quota_change %></span></td>
+          <td class="whitespace-nowrap"><span><%= I18n.l t.created_at, format: :short, locale: :en %></span></td>
+          <td class="whitespace-nowrap"><span><%= I18n.l t.updated_at, format: :short, locale: :en %></span></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+

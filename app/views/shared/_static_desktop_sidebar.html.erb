@@ -1,0 +1,21 @@
+<!-- Static sidebar for desktop -->
+<div class="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
+  <!-- Sidebar component, swap this element with another sidebar if you like -->
+  <div class="flex flex-col flex-grow border-r border-gray-500 pt-5 overflow-y-auto bg-white">
+    <div class="flex items-center flex-shrink-0 px-4">
+      <a class="navbar-logo h-8 w-auto text-transparent" href="/"></a>
+      <h1 class="text-2xl font-serif font-bold text-white-sand h-10 p-2">遠端機台檢測系統</h1>
+    </div>
+    <div class="mt-5 flex-grow flex flex-col">
+      <nav class="flex-1 px-2 pb-4 space-y-0 divide-y divide-gray-500">
+        <%= render "shared/navcontents" %>
+      </nav>
+    </div>
+
+    <div class="flex-shrink-0 flex border-t border-gray-500 p-2">
+      <div class="flex-shrink-0 group block">
+        <%= render "shared/accounts" %>
+      </div>
+    </div>
+  </div>
+</div>

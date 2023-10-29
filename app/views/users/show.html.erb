@@ -1,0 +1,12 @@
+<div class="mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
+  <div class="mx-auto">
+    <!-- Display the user"s information -->
+    <%= render @user %>
+
+    <div class="flex">
+      <%= link_to "修改員工", edit_user_path(@user), class: "m-2 ml-0 py-3 px-4 text-white bg-indigo-500 shadow-lg" %>
+      <%= button_to "重設密碼", reset_password_user_path(@user), data: { turbo_method: :post, turbo_confirm: "設定密碼後不可復原，缺定改變此使用者 [#{@user.username}] 的密碼為（今天日期4個數字）？" }, class: "m-2 py-3 px-4 text-white bg-yellow-500 shadow-lg" %>
+    </div>
+    
+  </div>
+</div>

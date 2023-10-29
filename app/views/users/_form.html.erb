@@ -1,0 +1,58 @@
+<%= form_with(model: user, class: "contents space-y-6") do |f| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-rose-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+        <% user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if action_name == "new" %>
+    <div>
+      <%= f.label :username, "名稱", class: "block text-lg font-medium text-gray-700" %>
+      <div class="mt-2">
+        <%= f.text_field :username, required: true, class: "block w-full border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6" %>
+      </div>
+    </div>
+    <div>
+      <%= f.label :password, "密碼", class: "block text-lg font-medium text-gray-700" %>
+      <div class="mt-2">
+        <%= f.text_field :password, value: @password, required: true, class: "block w-full border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 disabled:opacity-50 " %>
+        <i class="text-sm">(預設密碼為創帳日期)</i>
+      </div>
+    </div>
+
+    <!-- 創帳號的人 -->
+    <%= f.hidden_field :created_by, value: @created_by %>
+
+    <% if current_user.admin? %>
+      <div>
+        <%= f.label :quota, "元件", class: "block text-lg font-medium text-gray-700" %>
+        <div class="mt-2">
+          <%= f.number_field :quota, required: true, class: "block w-full border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6" %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div>
+      <%= f.label :username, "名稱", class: "block text-lg font-medium text-gray-700" %>
+      <div class="mt-2">
+        <%= f.text_field :username, class: "block w-full border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 disabled:opacity-50 disabled:cursor-not-allowed", disabled: true %>
+      </div>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :level, "身分組別", class: "block text-lg font-medium text-gray-700" %>
+    <div class="mt-2">
+      <%= f.select :level, @options, class: "block w-full border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6" %>
+    </div>
+  </div>
+
+  <div class="block">
+    <%= f.submit "確定", class: "btn flex w-full justify-center border border-transparent bg-indigo-600 py-2 px-4 text-lg font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2  " %>
+  </div>
+<% end %>

@@ -1,0 +1,13 @@
+inherit_gem:
+  rubocop-shopify: rubocop.yml
+
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  NewCops: disable
+
+Style/ClassAndModuleChildren:
+  Enabled: false

@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&display=swap');
+
+
+@tailwind base;
+@tailwind components;
+
+@layer base {
+    /* set text color */
+    body {
+        @apply text-gray-800 bg-gray-100;
+    }
+
+    /* fonts */
+    input,
+    a {
+        @apply font-sans;
+    }
+
+    /* table grid lines */
+    table {
+        @apply border-collapse table-fixed min-w-full shadow-lg;
+    }
+
+    /* table grid lines  */
+    th,
+    td {
+        @apply border border-collapse border-gray-500 px-2 py-0.5;
+    }
+
+    h1, h2, h3, h4, h5, h6, label {
+        @apply font-serif;
+    }
+
+    /* table row differ color in betweeen */
+    tr:nth-child(2n) {
+        @apply bg-gray-200;
+    }
+
+    /* cjk table thead no wrap */
+    th {
+        word-break: keep-all;
+    }
+
+    /* table thead emphasis */
+    thead th,
+    thead td {
+        @apply bg-gray-900 text-gray-50;
+    }
+
+    /* (label which following by select) this only works on chrome and safari but is enough */
+    label:has(+ select) {
+        @apply block font-serif font-medium text-gray-700;
+    }
+
+    /* dropdown select group */
+    select {
+        @apply mt-1 block w-full leading-8 border-gray-300 focus:border-gray-500 focus:outline-none focus:ring-gray-500;
+    }
+
+    select option {
+        @apply font-serif;
+    }
+
+    /* all these things shoulda look like button */
+    [type="button"],
+    [type="reset"],
+    [type="submit"],
+    button {
+        @apply flex items-center px-3 py-2 font-semibold leading-6 border shadow-lg;
+    }
+
+    /* we are ultilizing this on li to set a ::after when .active */
+    li {
+        @apply relative;
+    }
+}
+
+@layer components {
+    /* mocking anything to a button style */
+    .btn {
+        @apply flex items-center px-3 py-2 font-semibold leading-6 border shadow-lg;
+    }
+
+    /* sidebar link */
+    .submenu__link {
+        @apply ml-4 px-1 py-0 text-base leading-4 inline-block;
+    }
+
+    li:has(> a.active) {
+        @apply bg-gray-100;
+    }
+
+    /* li has direct child a.active */
+    li:has(> a.active)::after {
+        @apply absolute left-2 w-1 h-6 bg-gray-500 content-[''];
+    }
+
+    .submenu__opened {
+        @apply bg-gray-500;
+    }
+
+    .submenu__opened > a {
+        @apply text-white;
+    }
+
+    /* app > views > showrooms > input.html.erb */
+    .input-group > label {
+        @apply block text-sm text-gray-700 font-serif;
+    }
+
+    .input-group input[type="text"] {
+        @apply block w-full border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:leading-4 sm:text-sm ;
+    }
+}
+
+@tailwind utilities;

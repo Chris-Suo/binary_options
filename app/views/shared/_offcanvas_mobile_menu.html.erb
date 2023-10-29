@@ -1,0 +1,95 @@
+<!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
+<div class="relative z-40 md:hidden max-h-screen" role="dialog" aria-modal="true">
+  <!--
+    Off-canvas menu backdrop, show/hide based on off-canvas menu state.
+
+    Entering: "transition-opacity ease-linear duration-300"
+      From: "opacity-0"
+      To: "opacity-100"
+    Leaving: "transition-opacity ease-linear duration-300"
+      From: "opacity-100"
+      To: "opacity-0"
+  -->
+  <div class="hidden fixed inset-0 bg-gray-600 bg-opacity-75 max-h-screen"
+       data-action="click->mobilemenu#closeMenu"
+       data-mobilemenu-target="backdrop"
+       data-transition-enter="transition-opacity ease-linear duration-300"
+       data-transition-enter-start="opacity-0"
+       data-transition-enter-end="opacity-100"
+       data-transition-leave="transition-opacity ease-linear duration-300"
+       data-transition-leave-start="opacity-100"
+       data-transition-leave-end="opacity-0"></div>
+
+  <div class="hidden fixed inset-0 flex z-40 max-h-screen"
+
+       data-mobilemenu-target="backdropz"
+       data-transition-enter="transition-opacity ease-linear duration-300"
+       data-transition-enter-start="opacity-0"
+       data-transition-enter-end="opacity-100"
+       data-transition-leave="transition-opacity ease-linear duration-300"
+       data-transition-leave-start="opacity-100"
+       data-transition-leave-end="opacity-0">
+    <!--
+      Off-canvas menu, show/hide based on off-canvas menu state.
+
+      Entering: "transition ease-in-out duration-300 transform"
+        From: "-translate-x-full"
+        To: "translate-x-0"
+      Leaving: "transition ease-in-out duration-300 transform"
+        From: "translate-x-0"
+        To: "-translate-x-full"
+    -->
+    <div class="hidden relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 max-h-screen bg-gray-100"
+         data-mobilemenu-target="menudiv"
+         data-transition-enter="transition ease-in-out duration-300 transform"
+         data-transition-enter-start="-translate-x-full"
+         data-transition-enter-end="translate-x-0"
+         data-transition-leave="transition ease-in-out duration-300 transform"
+         data-transition-leave-start="translate-x-0"
+         data-transition-leave-end="-translate-x-full">
+      <!--
+        Close button, show/hide based on off-canvas menu state.
+
+        Entering: "ease-in-out duration-300"
+          From: "opacity-0"
+          To: "opacity-100"
+        Leaving: "ease-in-out duration-300"
+          From: "opacity-100"
+          To: "opacity-0"
+      -->
+      <div class="hidden absolute top-4 right-4 pt-2"
+           data-mobilemenu-target="closeButton"
+           data-transition-enter="ease-in-out duration-300"
+           data-transition-enter-start="opacity-0"
+           data-transition-enter-end="opacity-100"
+           data-transition-leave="ease-in-out duration-300"
+           data-transition-leave-start="opacity-100"
+           data-transition-leave-end="opacity-0">
+        <button type="button" class="ml-1 flex items-center justify-center h-10 w-10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white shadow-none" data-action="click->mobilemenu#closeMenu">
+          <span class="sr-only">Close sidebar</span>
+          <svg class="h-6 w-6 text-very-peri" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="flex-shrink-0 flex items-center px-4">
+        <a class="navbar-logo" href="/">
+          <h1 class="text-xl font-semibold text-primary h-10 p-2">遠端機台檢測</h1>
+        </a>
+      </div>
+      <div class="mt-5 flex-1 h-0 overflow-y-auto">
+        <nav class="px-2 space-y-1">
+          <%= render "shared/navcontents" %>
+        </nav>
+      </div>
+      <div class="flex-shrink flex-col p-2 border-t border-gray-500">
+        <%= render "shared/accounts" %>
+      </div>
+    </div>
+
+    <div class="flex-shrink-0 w-14" aria-hidden="true">
+      <!-- Dummy element to force sidebar to shrink to fit close icon -->
+    </div>
+  </div>
+</div>

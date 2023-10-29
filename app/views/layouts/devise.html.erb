@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html class="h-full bg-gray-50" lang="<%= params[:locale] %>">
+<head>
+  <title>員工登入</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta id="extViewportMeta" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
+  <style>
+      html, body {
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          -webkit-overflow-scrolling: touch;
+      }
+  </style>
+
+  <%= javascript_importmap_tags %>
+</head>
+
+<body class="h-full">
+<div class="max-w-full mx-auto">
+  <%= yield %>
+</div>
+
+<%= render "shared/flash" %>
+</body>
+</html>

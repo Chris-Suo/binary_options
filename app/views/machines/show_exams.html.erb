@@ -1,0 +1,68 @@
+<div class="mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
+
+  <div class="flex justify-between items-center py-2">
+    <h1 class="font-bold text-2xl tracking-wider">機台<%= @machine.slug %>自訂參數</h1>
+
+    <%= form_with model: @machine do |f| %>
+      <div class="flex justify-end space-x-2">
+        <%= f.label :custom_option, class: "text-gray-700" %>
+        <%= f.text_field :custom_option, class: "form-input rounded-md shadow-sm border-gray-300 block w-24" %>
+        <%= f.submit "修改", class: "btn text-white border border-transparent bg-indigo-600 tracking-wide" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-2xl tracking-wider">機台<%= @machine.slug %>答案列表</h1>
+
+    <div class="flex justify-end space-x-2">
+      <% if @machine.on_off? %>
+        <%= link_to '關閉機器', switch_machine_path(slug: @machine.slug), data: { turbo_method: :post, turbo_confirm: "關閉後員工即不可操作, 確定關閉機器 [#{@machine.slug}]？" }, class: "btn text-white border border-transparent bg-rose-600 tracking-wide" %>
+      <% else %>
+        <%= link_to '打開機器', switch_machine_path(slug: @machine.slug), data: { turbo_method: :post, turbo_confirm: "打開後員工即可操作, 確定打開機器 [#{@machine.slug}]？" }, class: "btn text-white border border-transparent bg-indigo-600 tracking-wide" %>
+      <% end %>
+
+      <% if @machine.finished? %>
+        <%= link_to '機器標記為已完工', switch_machine_path(slug: @machine.slug), data: { turbo_method: :post, turbo_confirm: "完工後員工即不可操作, 確定變更 [#{@machine.slug}] 為已完工狀態？" }, class: "btn text-white border border-transparent bg-rose-600 tracking-wide" %>
+      <% else %>
+        <%= link_to '機器標記未完工', switch_machine_path(slug: @machine.slug), data: { turbo_method: :post, turbo_confirm: "取消完工後員工即可操作, 確定變更 [#{@machine.slug}] 為未完工狀態？" }, class: "btn text-white border border-transparent bg-indigo-600 tracking-wide" %>
+      <% end %>
+    </div>
+
+  </div>
+
+  <div class="overflow-auto py-4 align-middle">
+    <%= paginate @answers %>
+
+    <table class="">
+      <thead class="">
+      <tr>
+        <!--<td class="bg-indigo-600"><span class="whitespace-nowrap">編號</span></td>-->
+        <td class="bg-indigo-600"><span class="whitespace-nowrap">開始時間</span></td>
+        <td class="bg-indigo-600"><span class="whitespace-nowrap">答案敘述</span></td>
+        <td class="bg-indigo-600"><span class="whitespace-nowrap">答案代號</span></td>
+      </tr>
+      </thead>
+      <tbody>
+
+      <% @answers.each_with_index do |exam, index| %>
+
+        <% if index % 5 == 0 %>
+          <tr>
+            <td class="whitespace-nowrap bg-indigo-200 text-center" colspan="4"><%= I18n.l exam.batch_at, format: :short %></td>
+          </tr>
+        <% end %>
+        <tr>
+          <!--<td class="whitespace-nowrap"><%#= exam.id %></td>-->
+          <td class="whitespace-nowrap"><%= I18n.l exam.batch_at, format: :long %></td>
+          <td class="whitespace-nowrap"><%= exam.answer_string %></td>
+          <td class="whitespace-nowrap"><%= exam.answer_code %></td>
+        </tr>
+      <% end %>
+
+      </tbody>
+    </table>
+    <%= paginate @answers %>
+  </div>
+
+</div>

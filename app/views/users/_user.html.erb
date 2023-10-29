@@ -1,0 +1,76 @@
+<div id="<%= dom_id user %>">
+  <div class="overflow-hidden bg-white shadow mb-4 shadow-lg">
+    <div class="px-4 py-5 sm:px-6 flex justify-start items-center">
+      <h3 class="text-xl font-semibold leading-6 text-gray-900">員工資料</h3>
+      <p class="ml-4 max-w-2xl text-gray-500"><%= link_to "返回員工列表", users_path, class: "text-indigo-500 bg-transparent" %></p>
+    </div>
+    <div class="border-t border-gray-100">
+      <dl class="divide-y divide-gray-100">
+        <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="font-serif font-medium text-gray-900">名稱</dt>
+          <dd class="mt-1 text-xl leading-6 font-bold text-gray-700 sm:col-span-2 sm:mt-0"><%= user.username %></dd>
+        </div>
+        <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="font-serif font-medium text-gray-900">元件</dt>
+          <dd class="mt-1 text-xl leading-6 font-bold text-gray-700 sm:col-span-2 sm:mt-0"><%= user.quota %></dd>
+        </div>
+        <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="font-serif font-medium text-gray-900">狀態</dt>
+          <dd class="mt-1 text-xl leading-6 font-bold text-gray-700 sm:col-span-2 sm:mt-0 <%= user_status_color(user) %>">
+            <%= user_status(user) %>
+
+          </dd>
+        </div>
+        <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="font-serif font-medium text-gray-900">身份組</dt>
+          <dd class="mt-1 text-xl leading-6 font-bold text-gray-700 sm:col-span-2 sm:mt-0 <%= user_level_color(user) %>"><%= user_level(user) %></dd>
+        </div>
+        <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="font-serif font-medium text-gray-900">經由哪位小組長創帳號</dt>
+          <dd class="mt-1 text-xl leading-6 font-bold text-gray-700 sm:col-span-2 sm:mt-0"><%= created_by_leader(user) %></dd>
+        </div>
+        <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="font-serif font-medium text-gray-900">創帳號啟用時間</dt>
+          <dd class="mt-1 text-xl leading-6 font-bold text-gray-700 sm:col-span-2 sm:mt-0"><%= I18n.l user.created_at, format: :short %></dd>
+        </div>
+
+        <% if current_user.admin? %>
+          <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="font-serif font-medium text-gray-900">加減元件</dt>
+            <dd class="mt-1 text-xl leading-6 font-bold text-gray-700 sm:col-span-2 sm:mt-0"><%= link_to "加減元件", quota_user_path(@user), class: "text-indigo-500" %></dd>
+          </div>
+
+          <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="font-serif font-medium text-gray-900">刪除員工</dt>
+            <dd class="mt-1 text-xl leading-6 font-bold text-gray-700 sm:col-span-2 sm:mt-0"><%= link_to "刪除員工", user_path(@user), method: :delete, data: { turbo_method: :delete, turbo_confirm: "刪除後不可復原，缺定刪除此使用者 [#{@user.username}]？" }, class: "text-rose-700" %></dd>
+          </div>
+
+          <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="font-serif font-medium text-gray-900">檢測結果</dt>
+            <dd class="mt-1 text-xl leading-6 font-bold text-gray-700 sm:col-span-2 sm:mt-0"><%= link_to "檢測結果", trials_user_path(@user), class: "text-indigo-500" %></dd>
+          </div>
+
+          <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="font-serif font-medium text-gray-900">切換員工狀態</dt>
+            <dd class="mt-1 text-xl leading-6 font-bold text-gray-700 sm:col-span-2 sm:mt-0">
+              <%= button_to [:toggle_active, @user], method: :post, form: { data: { turbo_confirm: "確定切換員工狀態？" } }, class: "btn text-white #{@user.active? ? "bg-red-500" : "bg-indigo-500"}" do %>
+                <strong><%= @user.active ? "設為停用" : "設為啟用" %></strong>
+              <% end %>
+            </dd>
+          </div>
+        <% end %>
+      </dl>
+    </div>
+  </div>
+
+  <% if action_name != "show" %>
+    <%= link_to "顯示", user, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to '編輯', edit_user_path(user), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+
+</div>
+
+
+
+

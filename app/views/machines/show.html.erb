@@ -1,0 +1,91 @@
+<div class="bg-white">
+  <div class="pt-6 pb-16 sm:pb-24">
+    <div class="mx-auto mt-8 max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+      <div class="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8" data-controller="timeraxios" data-timeraxios-slug-value="<%= @machine.slug %>">
+        <div class="lg:col-span-5 lg:col-start-8">
+          <div class="flex justify-between">
+            <h1 class="text-3xl font-medium text-gray-900"><%= @machine.name %>
+              <span class="<%= @machine.on_off ? "" : "text-red-500" %>">
+                (<%= @machine.on_off ? "開啟" : "關閉" %>)
+              </span>
+            </h1>
+            <p class="text-xl font-medium text-gray-900"></p>
+          </div>
+          <!-- Reviews -->
+          <div class="mt-4">
+            <h2 class="sr-only">Reviews</h2>
+            <div class="flex items-center">
+              <button name="button"
+                      type="button"
+                      class="btn py-3 px-3 flex items-center justify-center cursor-pointer focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                      data-action="timeraxios#sync"
+                      <%= @machine.on_off? ? "" : "disabled" %>>連接伺服器
+              </button>
+
+              <h3 class="px-6 block text-indigo-500 text-red-600 text-2xl font-bold" data-timeraxios-target="timer">等待同步</h3>
+            </div>
+            <div class="hidden w-full text-center my-2 mx-auto" data-timeraxios-target="progress">
+              <div class="progress progress-striped">
+                <div class="progress-bar">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image gallery -->
+        <div class="mt-8 lg:col-span-7 lg:col-start-1 lg:row-span-3 lg:row-start-1 lg:mt-0">
+          <h2 class="sr-only">Images</h2>
+          <div class="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-3 lg:gap-8">
+            <%= image_tag @machine.image_url, class: "object-cover lg:col-span-2 lg:row-span-2 rounded-lg", alt: @machine.description %>
+          </div>
+        </div>
+
+        <div class="mt-8 lg:col-span-5">
+
+          <%= form_with scope: :trial, url: create_trial_path(slug: @machine.slug) do |f| %>
+            <%= f.hidden_field :time, data: { "timeraxios-target": "input" } %>
+            <%= f.hidden_field :machine_id, value: @machine.id %>
+
+            <div>
+              <%= f.label :exam_option, "機台型號", class: "block text-lg font-medium text-gray-700" %>
+              <div class="mt-2">
+                <%= f.select :exam_option, @options, class: "block w-full border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6" %>
+              </div>
+            </div>
+
+            <!-- Size picker -->
+            <div class="mt-8">
+              <div class="flex items-center justify-between">
+                <h2 class="text-lg font-medium text-gray-700">檢測項目</h2>
+                <a href="#" class="text-sm font-medium  hover:text-indigo-500"></a>
+              </div>
+
+              <fieldset class="mt-2">
+                <legend class="sr-only">檢測項目</legend>
+                <div class="grid grid-cols-1 gap-3" data-controller="select">
+
+                  <% (1..4).each do |n| %>
+                    <label class="btn border py-3 px-3 h-16 flex items-center justify-center sm:flex-1 cursor-pointer focus:outline-none" data-select-target="label">
+                      <input type="radio" name="[trial]answer" value="<%= n %>" class="sr-only" aria-labelledby="size-choice-0-label"
+                             data-action="change->select#changeOption"
+                             data-select-active-param="<%= n %>"
+                             required="required">
+                      <span id="size-choice-0-label"><%= @machine.public_send("option#{n}") %></span>
+                    </label>
+                  <% end %>
+
+                </div>
+              </fieldset>
+            </div>
+
+            <button data-timeraxios-target="submit" data-action="click->timeraxios#reset" type="submit" class="mt-8 flex w-full items-center justify-center border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed" disabled>執行檢測</button>
+
+          <% end %>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
